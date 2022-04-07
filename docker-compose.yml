@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - '8080:8080'
+  mysql:
+    platform: linux/x86_64
+    image: mysql:5.7
+    volumes:
+      - ./my.cnf:/etc/mysql/my.cnf
+      - ./initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=movie
+    ports:
+      - "3306:3306"
